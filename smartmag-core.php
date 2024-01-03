@@ -88,35 +88,35 @@ class SmartMag_Core
 			require_once $this->path . 'lib/bunyad.php';
 			require_once $this->path . 'inc/bunyad.php';
 
-			require_once $this->path . 'lib/util.php';
+			// require_once $this->path . 'lib/util.php';
 			// require_once $this->path . 'blocks/helpers.php';
 
 			// Set path to local as theme isn't active
-			Bunyad::$fallback_path = $lib_path;
+			// Bunyad::$fallback_path = $lib_path;
 
-			Bunyad::options()->set_config([
-				'theme_prefix' => self::THEME_SLUG,
-				'meta_prefix'  => '_bunyad'
-			]);
+			// Bunyad::options()->set_config([
+			// 	'theme_prefix' => self::THEME_SLUG,
+			// 	'meta_prefix'  => '_bunyad'
+			// ]);
 		}
 		else {
 
 			// If we're here, there's a ThemeSphere theme active. All ThemeSphere themes have
 			// their own core plugins. Theme's own core plugin should be used instead.
-			if (Bunyad::options()->get_config('theme_name') !== self::THEME_SLUG) {
-				return;
-			}
+			// if (Bunyad::options()->get_config('theme_name') !== self::THEME_SLUG) {
+			// 	return;
+			// }
 
-			$this->theme_supports = ['blocks' => true];
+			// $this->theme_supports = ['blocks' => true];
 		}
 
 		// Outdated Bunyad from an old theme? Cannot continue.
-		if (!property_exists('Bunyad', 'fallback_path')) {
-			return;
-		}
+		// if (!property_exists('Bunyad', 'fallback_path')) {
+		// 	return;
+		// }
 
 		// Set local fallback for some components not packaged with theme.
-		Bunyad::$fallback_path = $lib_path;
+		// Bunyad::$fallback_path = $lib_path;
 
 		/**
 		 * Setup filters and data
@@ -132,39 +132,39 @@ class SmartMag_Core
 		}
 
 		// Admin related actions
-		add_action('admin_init', [$this, 'register_metaboxes']);
+		// add_action('admin_init', [$this, 'register_metaboxes']);
 
 		// User profile fields
-		add_filter('user_contactmethods', [$this, 'add_profile_fields']);
+		// add_filter('user_contactmethods', [$this, 'add_profile_fields']);
 
 		// Register assets
 		add_action('admin_enqueue_scripts', [$this, 'admin_assets']);
 
 		// Setup blocks
-		$this->setup_blocks();
+		// $this->setup_blocks();
 
 		// Setup widgets - hook will be handled by Bunyad_Widgets.
-		$this->setup_widgets();
+		// $this->setup_widgets();
 
 		// Performance optimizations.
-		require_once $this->path . 'inc/optimize.php';
+		// require_once $this->path . 'inc/optimize.php';
 
 		// Social Share and Follow.
-		require_once $this->path . 'inc/social-share.php';
+		// require_once $this->path . 'inc/social-share.php';
 
 		// Classic Editor features
-		if (is_admin()) {
-			require_once $this->path . 'inc/editor.php';
-		}
+		// if (is_admin()) {
+		// 	require_once $this->path . 'inc/editor.php';
+		// }
 
 		// Init menu helper classes
-		Bunyad::menus();
-		add_filter('bunyad_custom_menu_fields', [$this, 'custom_menu_fields']);
+		// Bunyad::menus();
+		// add_filter('bunyad_custom_menu_fields', [$this, 'custom_menu_fields']);
 
 		// Init reviews.
-		Bunyad::register('reviews', [
-			'object' => new SmartMag\Reviews\Module
-		]);
+		// Bunyad::register('reviews', [
+		// 	'object' => new SmartMag\Reviews\Module
+		// ]);
 
 		// Translation: To be loaded via theme. Uncomment below to do a local translate.
 		// load_plugin_textdomain(
@@ -177,9 +177,9 @@ class SmartMag_Core
 		 * Old version migration.
 		 */
 		// DEBUG: update_option('smartmag_convert_from_v3', 1);
-		if (is_admin() && get_option('smartmag_convert_from_v3')) {
-			new SmartMag\ConvertV5\ConvertV5;
-		}
+		// if (is_admin() && get_option('smartmag_convert_from_v3')) {
+		// 	new SmartMag\ConvertV5\ConvertV5;
+		// }
 	}
 
 	/**
@@ -320,25 +320,25 @@ class SmartMag_Core
 		/**
 		 * Block Widgets.
 		 */
-		add_action('widgets_init', function() {
-			// Load the class map to prevent unnecessary autoload to save resources.
-			include_once \SmartMag_Core::instance()->path . 'inc/widgets/classmap-widgets.php';
+		// add_action('widgets_init', function() {
+		// 	// Load the class map to prevent unnecessary autoload to save resources.
+		// 	include_once \SmartMag_Core::instance()->path . 'inc/widgets/classmap-widgets.php';
 
-			// Block widgets to load.
-			$blocks = [
-				'Loops\Grid', 
-				'Loops\Overlay', 
-				'Loops\PostsSmall', 
-				'Loops\Highlights', 
-				'Newsletter',
-				'Codes'
-			];
+		// 	// Block widgets to load.
+		// 	$blocks = [
+		// 		'Loops\Grid', 
+		// 		'Loops\Overlay', 
+		// 		'Loops\PostsSmall', 
+		// 		'Loops\Highlights', 
+		// 		'Newsletter',
+		// 		'Codes'
+		// 	];
 			
-			foreach ($blocks as $block) {	
-				$class = 'Bunyad\Widgets\\' . $block . '_Block';
-				register_widget($class);
-			}
-		});
+		// 	foreach ($blocks as $block) {	
+		// 		$class = 'Bunyad\Widgets\\' . $block . '_Block';
+		// 		register_widget($class);
+		// 	}
+		// });
 	}
 
 	/**
