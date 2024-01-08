@@ -11,10 +11,3 @@
 
 $main_file = 'bunyad.php';
 require_once $main_file;
-
-/**
- * Define Bunyad class if it doesn't exist
- */
-if (!class_exists('Bunyad')) {
-	class Bunyad extends Bunyad_Base {}	
-}

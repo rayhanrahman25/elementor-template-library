@@ -151,7 +151,5 @@ class Loader
 
 		return false;
 
-		// DEBUG: 
-		// trigger_error('Class file not found: ' . $class . " - Pref: {$pref_file} - Alt: {$alt_file} ");
 	}
 }
