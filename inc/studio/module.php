@@ -2,7 +2,7 @@
 
 namespace Bunyad\Studio;
 
-use \SmartMag_Core;
+use \RR_Template_Library;
 
 /**
  * The SmartMag Cloud Studio.
@@ -23,9 +23,9 @@ class Module
 	{
 		wp_enqueue_script(
 			'bunyad-el-studio',
-			SmartMag_Core::instance()->path_url . 'inc/studio/js/elementor.js',
+			RR_Template_Library::instance()->path_url . 'inc/studio/js/elementor.js',
 			['jquery', 'wp-util', 'masonry', 'imagesloaded'],
-			SmartMag_Core::VERSION
+			RR_Template_Library::VERSION
 		);
 
 		$data = json_decode(
@@ -43,9 +43,9 @@ class Module
 	{
 		wp_enqueue_style(
 			'bunyad-el-studio',
-			SmartMag_Core::instance()->path_url . 'inc/studio/css/elementor.css',
+			RR_Template_Library::instance()->path_url . 'inc/studio/css/elementor.css',
 			[],
-			SmartMag_Core::VERSION
+			RR_Template_Library::VERSION
 		);
 	}
 
@@ -64,7 +64,7 @@ class Module
 		];
 
 		foreach ($views as $view) {
-			include_once SmartMag_Core::instance()->path . 'inc/studio/views/el-' . $view . '.php';
+			include_once RR_Template_Library::instance()->path . 'inc/studio/views/el-' . $view . '.php';
 		}
 	}
 

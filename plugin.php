@@ -1,22 +1,20 @@
 <?php
 /**
- * SmartMag Core
+ * Elementor Template Library
  *
- * Plugin Name:       SmartMag Core
- * Description:       Elements and core functionality for SmartMag Theme.
- * Version:           1.4.7
- * Author:            ThemeSphere
- * Author URI:        https://theme-sphere.com
- * License:           ThemeForest Split
- * License URI:       https://themeforest.net/licenses/standard
- * Text Domain:       smartmag
+ * Plugin Name:       Elementor Template Library
+ * Description:       Template library for elementor
+ * Version:           0.0.8
+ * Author:            rayhan420
+ * Author URI:        https://github.com/rayhanrahman25
+ * Text Domain:       template-libra
  * Domain Path:       /languages
  * Requires PHP:      7.1
  */
 
 defined('WPINC') || exit;
 
-class SmartMag_Core 
+class RR_Template_Library 
 {
 	const VERSION    = '1.4.7';
 
@@ -50,38 +48,15 @@ class SmartMag_Core
 		// URL for the plugin dir
 		$this->path_url = plugin_dir_url(__FILE__);
 
-		/**
-		 * Register autoloader. Usually uses the loader from theme if present.
-		 */
-		if (!class_exists('\Bunyad\Lib\Loader', false)) {
-			require_once $this->path . 'lib/loader.php';
-		}
-		
-		$path       = $this->path;
-		$namespaces = [
-			'Bunyad\Elementor\\' => $path . 'inc/elementor',
-			'Bunyad\Studio\\'    => $path . 'inc/studio',
-		];
-
-		$loader = new \Bunyad\Lib\Loader($namespaces);
-
 	}
 	
 	/**
 	 * Setup to be hooked after setup theme.
 	 */
 	public function init()
-	{		
-		$this->did_init = true;
-		$lib_path = $this->path . 'lib/';
-		
-		/**
-		 * When one of our themes isn't active, use shims
-		 */
-		if (!class_exists('Bunyad_Core')) {
-			require_once $this->path . 'lib/bunyad.php';
-			require_once $this->path . 'inc/bunyad.php';
-		}
+	{
+
+		include_once($this->path . 'inc/studio/module.php');
 
 		/**
 		 * Setup filters and data
@@ -89,9 +64,6 @@ class SmartMag_Core
 
 		// Elementor specific
 		if (class_exists('\Elementor\Plugin') || did_action('elementor/loaded')) {
-			$elementor = new \Bunyad\Elementor\Module;
-			$elementor->register_hooks();
-
 			// And the studio.
 			new \Bunyad\Studio\Module;
 		}
@@ -102,7 +74,7 @@ class SmartMag_Core
 	/**
 	 * Singleton instance
 	 * 
-	 * @return SmartMag_Core
+	 * @return RR_Template_Library
 	 */
 	public static function instance() 
 	{
@@ -125,7 +97,7 @@ add_action('after_setup_theme', function() {
 	/**
 	 * Initialize the plugin at correct hook.
 	 */
-	$smartmag = SmartMag_Core::instance();
+	$smartmag = RR_Template_Library::instance();
 	add_action('after_setup_theme', [$smartmag, 'init']);
 
 }, 1);
